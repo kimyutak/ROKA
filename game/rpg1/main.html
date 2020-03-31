@@ -5,19 +5,50 @@
     <title>ROKA rpg</title>
     <style>
         * { padding : 0; margin : 0;}
-        canvas { background: #eee; display: block; margin: 0 auto; }
+        canvas { background: #808080; display: block; margin: 0 auto; }
     </style>
 </head>
 <body>
-    <h1>RPG 3311925</h1>
+    <h1>RPG</h1>
     <canvas id="canvas" width="480" height="320"></canvas> 
     <script>
-        var canvas = document.getElementByID("canvas");
+        var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
-        ctx.beginPath();
-        ctx.rect(20, 40, 50, 50);
-        ctx.fillStyle = "#FF0000";
-        ctx.fill(); ctx.closePath();
+        var fps = 30;
+        
+        var x = canvas.width/2;
+        var y = canvas.height;
+        var dx = 100;
+        var dy = 100;
+        var timer = Date.now();
+        
+        function draw() {
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            timer = varChange(timer);
+            drawCircle();
+        }
+        
+        function drawCircle() {
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, Math.PI*2);
+            ctx.fillStyle = "#0095DD";
+            ctx.fill();
+            ctx.closePath();
+        }
+        
+        function varChange(pastTime) {
+            var  currentTime = Date.now();
+            var dTime = currentTime-pastTime;
+            x += dTime/1000*dx;
+            if (x>canvas.width) x -= canvas.width;
+            y += dTime/1000*dy;
+            if (y>canvas.height) y-= canvas.height;
+            return currentTime;
+        }
+        
+        
+        setInterval(draw,1000/fps);
     </script>
     
 </body>
