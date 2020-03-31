@@ -11,22 +11,41 @@
 <body>
     <h1>RPG</h1>
     <canvas id="canvas" width="480" height="320"></canvas> 
+    
     <script>
-        var canvas = document.getElementById("canvas");
-        var ctx = canvas.getContext("2d");
-        var fps = 30;
+        var canvas;
+        var ctx;
+        var fps;
+        var x,y,dx,dy;
+        var timer;
         
-        var x = canvas.width/2;
-        var y = canvas.height;
-        var dx = 100;
-        var dy = 100;
-        var timer = Date.now();
+        init();
+        function init() {
+            canvas = document.getElementById("canvas");
+            ctx = canvas.getContext("2d");
         
-        function draw() {
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fps = 30;
+            x = canvas.width/2;
+            y = canvas.height;
+            dx = 100;
+            dy = 100;
+            timer = Date.now();
+            setInterval(loop,1000/fps);
+        }
+        
+        function loop() {
+            update();
+            display();
+        }
+        
+        function update() {
             timer = varChange(timer);
+        }
+        
+        function display() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawCircle();
+            drawFPS();
         }
         
         function drawCircle() {
@@ -37,6 +56,9 @@
             ctx.closePath();
         }
         
+        function drawFPS() {
+            //TODO
+        }
         function varChange(pastTime) {
             var  currentTime = Date.now();
             var dTime = currentTime-pastTime;
@@ -47,8 +69,6 @@
             return currentTime;
         }
         
-        
-        setInterval(draw,1000/fps);
     </script>
     
 </body>
